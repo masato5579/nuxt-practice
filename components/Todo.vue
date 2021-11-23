@@ -4,11 +4,12 @@
       <div class="taskAdd">
         <input
           id="input"
+          v-model="content"
           type="text"
           name="input"
           placeholder="タスクを入力してください"
         />
-        <button id="add">
+        <button id="add" @click="insert">
           追加
         </button>
       </div>
@@ -23,10 +24,10 @@
           未完了
         </button>
       </div>
-      <div class="task">
+      <div v-for="(todo,index) in getTodos" :key="index" class="task">
         <div class="taskWrap">
           <p class="taskContent">
-            テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト
+            {{ todo.content }}
           </p>
           <button>
             完了
@@ -36,6 +37,33 @@
     </div>
   </section>
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      content: ''
+    }
+  },
+  methods: {
+    insert() {
+      if (this.content !== '') {
+        this.$store.commit('insert', { content: this.content })
+        this.content = ''
+      } else {
+        alert('タスクが入力されていません。')
+      }
+    }
+  },
+  computed: {
+    getTodos() {
+      return this.$store.getters.getTodos
+    }
+  }
+}
+
+</script>
 
 <style>
 .container {
@@ -76,6 +104,7 @@
 
 .task {
   border-bottom:1px solid #000;
+  padding:30px 0;
 }
 
 .taskWrap {
@@ -83,7 +112,6 @@
   justify-content: space-between;
   align-items: center;
   width:80%;
-  padding-bottom:30px;
 }
 
 .task .taskContent {
