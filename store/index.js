@@ -3,10 +3,7 @@ import Vuex from 'vuex'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      todos: [
-        { content: 'test完了', state: '完了' },
-        { content: 'test未完了', state: '未完了' }
-      ]
+      todos: []
     },
     getters: {
       getTodos: state => state.todos
@@ -15,8 +12,12 @@ const createStore = () => {
       insert(state, obj) {
         state.todos.unshift({
           content: obj.content,
-          state: '未完了'
+          state: false,
+          status: '未完了'
         })
+      },
+      changeState(state, obj) {
+        obj.todo.state = !state.todos[obj.index].state
       }
     }
   })

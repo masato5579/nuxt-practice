@@ -26,10 +26,10 @@
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
         <div class="taskWrap">
-          <p class="taskContent" v-bind:class="{'completeContent' : todo.state === '完了'}">
+          <p class="taskContent" v-bind:class="{'completeContent' : todo.state }">
             {{ todo.content }}
           </p>
-          <button v-bind:class="{'completeButton' : todo.state === '完了'}">
+          <button v-bind:class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
             完了
           </button>
         </div>
@@ -49,11 +49,14 @@ export default {
   methods: {
     insert() {
       if (this.content !== '') {
-        this.$store.commit('insert', { content: this.content, state: '未完了' })
+        this.$store.commit('insert', { content: this.content })
         this.content = ''
       } else {
         alert('タスクが入力されていません。')
       }
+    },
+    changeState(todo) {
+      this.$store.commit('changeState', todo)
     }
   },
   computed: {
