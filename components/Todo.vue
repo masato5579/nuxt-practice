@@ -14,15 +14,9 @@
         </button>
       </div>
       <div class="filter">
-        <button>
-          全て
-        </button>
-        <button>
-          完了
-        </button>
-        <button>
-          未完了
-        </button>
+        <div v-for="(button, index) in buttons" :key="index" class="buttonWrap">
+          <button @click="getfilter( index )">{{ button.value }}</button>
+        </div>
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
         <div class="taskWrap">
@@ -43,7 +37,13 @@
 export default {
   data() {
     return {
-      content: ''
+      content: '',
+      buttons: [
+        { value: '全て' },
+        { value: '完了' },
+        { value: '未完了' }
+      ],
+      button: ''
     }
   },
   methods: {
@@ -57,11 +57,24 @@ export default {
     },
     changeState(todo) {
       this.$store.commit('changeState', todo)
+    },
+    getfilter(index) {
+      this.button = this.buttons[index].value
     }
   },
   computed: {
     getTodos() {
-      return this.$store.getters.getTodos
+      const button = this.button
+      const todos = this.$store.getters.getTodos
+      const complete = todos.filter(todo => (todo.state === true))
+      const notComplete = todos.filter(todo => (todo.state === false))
+      if (button === '完了') {
+        return complete
+      } else if (button === '未完了') {
+        return notComplete
+      } else {
+        return todos
+      }
     }
   }
 }
@@ -97,12 +110,13 @@ export default {
 
 .filter {
   margin-bottom:10px;
+  display: flex;
 }
 
 .filter button {
-  width:100px;
   border-radius: 10px 10px 0 0;
-  margin-right:-7px;
+  width:100px;
+  height:30px;
 }
 
 .task {
