@@ -24,7 +24,7 @@
             {{ todo.content }}
           </p>
           <button v-bind:class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
-            {{todo.status}}
+            完了
           </button>
         </div>
       </div>
