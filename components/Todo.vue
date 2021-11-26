@@ -15,7 +15,7 @@
       </div>
       <div class="filter">
         <div v-for="(button, index) in buttons" :key="index" class="buttonWrap">
-          <button @click="getfilter( index )">{{ button.value }}</button>
+          <button @click="getfilter( index )" v-bind:class="{'cursorBgColor' : button.colorFlag}">{{ button.value }}</button>
         </div>
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
@@ -24,7 +24,7 @@
             {{ todo.content }}
           </p>
           <button v-bind:class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
-            完了
+            {{todo.status}}
           </button>
         </div>
       </div>
@@ -39,9 +39,9 @@ export default {
     return {
       content: '',
       buttons: [
-        { value: '全て' },
-        { value: '完了' },
-        { value: '未完了' }
+        { value: '全て', colorFlag: true },
+        { value: '完了', colorFlag: false },
+        { value: '未完了', colorFlag: false }
       ],
       button: ''
     }
@@ -60,6 +60,15 @@ export default {
     },
     getfilter(index) {
       this.button = this.buttons[index].value
+
+      const newButtons = this.buttons.map((button, i) => {
+        return {
+          ...button,
+          colorFlag: index === i
+        }
+      })
+
+      this.buttons = newButtons
     }
   },
   computed: {
@@ -147,5 +156,9 @@ export default {
 
 .completeButton {
   background-color: #707070;
+}
+
+.cursorBgColor {
+  background: #fff;
 }
 </style>
