@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="todoWrap">
+    <div class="wrap">
       <div class="taskAdd">
         <input
           id="input"
@@ -9,13 +9,13 @@
           name="input"
           placeholder="タスクを入力してください"
         />
-        <button id="add" @click="insert">
+        <button @click="insert">
           追加
         </button>
       </div>
       <div class="filter">
         <div v-for="(button, index) in buttons" :key="index" class="buttonWrap">
-          <button @click="getfilter( index )" v-bind:class="{'cursorBgColor' : button.colorFlag}">{{ button.value }}</button>
+          <button @click="getfilter( index )" v-bind:class="{'filterActiveBgColor' : button.colorFlag}">{{ button.value }}</button>
         </div>
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
@@ -38,12 +38,12 @@ export default {
   data() {
     return {
       content: '',
+      button: '',
       buttons: [
         { value: '全て', colorFlag: true },
         { value: '完了', colorFlag: false },
         { value: '未完了', colorFlag: false }
-      ],
-      button: ''
+      ]
     }
   },
   methods: {
@@ -61,28 +61,28 @@ export default {
     getfilter(index) {
       this.button = this.buttons[index].value
 
-      const newButtons = this.buttons.map((button, i) => {
+      const changeButtonsColorFlag = this.buttons.map((button, i) => {
         return {
           ...button,
           colorFlag: index === i
         }
       })
 
-      this.buttons = newButtons
+      this.buttons = changeButtonsColorFlag
     }
   },
   computed: {
     getTodos() {
       const button = this.button
-      const todos = this.$store.getters.getTodos
-      const complete = todos.filter(todo => (todo.state === true))
-      const notComplete = todos.filter(todo => (todo.state === false))
+      const allTodos = this.$store.getters.getTodos
+      const completeTodos = allTodos.filter(todo => (todo.state === true))
+      const notCompleteTodos = allTodos.filter(todo => (todo.state === false))
       if (button === '完了') {
-        return complete
+        return completeTodos
       } else if (button === '未完了') {
-        return notComplete
+        return notCompleteTodos
       } else {
-        return todos
+        return allTodos
       }
     }
   }
@@ -97,10 +97,12 @@ export default {
   padding:50px 0;
 }
 
-.todoWrap {
+.wrap {
   width:50%;
   margin:0 auto;
 }
+
+/* input */
 
 .taskAdd {
   display:flex;
@@ -117,6 +119,8 @@ export default {
   width:10%;
 }
 
+/* filter */
+
 .filter {
   margin-bottom:10px;
   display: flex;
@@ -127,6 +131,8 @@ export default {
   width:100px;
   height:30px;
 }
+
+/* task */
 
 .task {
   border-bottom:1px solid #000;
@@ -150,6 +156,8 @@ export default {
   border-radius: 20px;
 }
 
+/* task toggle style */
+
 .completeContent {
   text-decoration: line-through;
 }
@@ -158,7 +166,9 @@ export default {
   background-color: #707070;
 }
 
-.cursorBgColor {
+/* filter avtive style  */
+
+.filterActiveBgColor {
   background: #fff;
 }
 </style>
