@@ -14,16 +14,16 @@
         </button>
       </div>
       <div class="filter">
-        <div v-for="(button, index) in buttons" :key="index" class="buttonWrap">
-          <button @click="getfilter( index )" v-bind:class="{'filterActiveBgColor' : button.colorFlag}">{{ button.value }}</button>
+        <div v-for="(btn, index) in buttons" :key="index" class="buttonWrap">
+          <button :class="{'filterActiveBgColor' : btn.colorFlag}" @click="getfilter( index )">{{ btn.value }}</button>
         </div>
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
         <div class="taskWrap">
-          <p class="taskContent" v-bind:class="{'completeContent' : todo.state }">
+          <p class="taskContent" :class="{'completeContent' : todo.state }">
             {{ todo.content }}
           </p>
-          <button v-bind:class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
+          <button :class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
             完了
           </button>
         </div>
@@ -44,6 +44,21 @@ export default {
         { value: '完了', colorFlag: false },
         { value: '未完了', colorFlag: false }
       ]
+    }
+  },
+  computed: {
+    getTodos() {
+      const button = this.button
+      const allTodos = this.$store.getters.getTodos
+      const completeTodos = allTodos.filter(todo => (todo.state === true))
+      const notCompleteTodos = allTodos.filter(todo => (todo.state === false))
+      if (button === '完了') {
+        return completeTodos
+      } else if (button === '未完了') {
+        return notCompleteTodos
+      } else {
+        return allTodos
+      }
     }
   },
   methods: {
@@ -69,21 +84,6 @@ export default {
       })
 
       this.buttons = changeButtonsColorFlag
-    }
-  },
-  computed: {
-    getTodos() {
-      const button = this.button
-      const allTodos = this.$store.getters.getTodos
-      const completeTodos = allTodos.filter(todo => (todo.state === true))
-      const notCompleteTodos = allTodos.filter(todo => (todo.state === false))
-      if (button === '完了') {
-        return completeTodos
-      } else if (button === '未完了') {
-        return notCompleteTodos
-      } else {
-        return allTodos
-      }
     }
   }
 }
