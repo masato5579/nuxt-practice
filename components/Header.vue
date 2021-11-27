@@ -9,5 +9,6 @@
 <style>
 header {
   text-align: center;
+  padding:15px 0;
 }
 </style>

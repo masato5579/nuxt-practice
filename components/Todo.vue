@@ -94,7 +94,7 @@ export default {
 .container {
   height: 100vh;
   background-color: #f3f3f3;
-  padding:50px 0;
+  padding:100px 0;
 }
 
 .wrap {
@@ -108,7 +108,7 @@ export default {
   display:flex;
   justify-content: space-between;
   height:35px;
-  margin-bottom:35px;
+  margin-bottom:50px;
 }
 
 .taskAdd input {
