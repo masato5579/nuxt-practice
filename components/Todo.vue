@@ -91,84 +91,95 @@ export default {
 </script>
 
 <style>
-.container {
-  height: 100vh;
-  background-color: #f3f3f3;
-  padding:100px 0;
-}
 
 .wrap {
-  width:50%;
-  margin:0 auto;
+  width: 800px;
+  margin:100px auto 0;
 }
 
-/* input */
-
 .taskAdd {
-  display:flex;
+  display: flex;
   justify-content: space-between;
-  height:35px;
   margin-bottom:50px;
 }
 
 .taskAdd input {
-  width:80%;
+  width: 700px;
+  padding:12px 0;
+  padding-left: 20px;
+  font-size: 20px;
+  border-radius: 7px;
+  color: #000;
+  border: 1px solid #707070;
+  background-color: #fff;
 }
 
 .taskAdd button {
-  width:10%;
+  display: block;
+  width: 70px;
+  border-radius: 7px;
+  padding: 12px 18px;
+  color: #000;
+  border: 1px solid #707070;
+  background-color: #fff;
+  cursor: pointer;
 }
-
-/* filter */
 
 .filter {
-  margin-bottom:10px;
+  width:800px;
+  padding:66px auto 0px;
   display: flex;
+  justify-content: left;
+  margin:0 auto;
+  margin-bottom:35px;
 }
 
-.filter button {
-  border-radius: 10px 10px 0 0;
-  width:100px;
-  height:30px;
+.buttonWrap button {
+  color: #000;
+  width: 140px;
+  height: 35px;
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+  cursor: pointer;
 }
-
-/* task */
 
 .task {
-  border-bottom:1px solid #000;
-  padding:30px 0;
+  border-bottom: 1px solid #000;
+  padding: 0 110px 35px 0;
+  display: flex;
+  align-items: center;
+  color: #000;
+  margin-bottom: 35px;
 }
 
 .taskWrap {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  width:80%;
-}
-
-.task .taskContent {
-  width:82%;
+  width:100%;
 }
 
 .task button {
-  width:15%;
-  height: 35px;
-  border-radius: 20px;
+  width: 75px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 /* task toggle style */
-
 .completeContent {
-  text-decoration: line-through;
+   text-decoration: line-through;
 }
 
 .completeButton {
-  background-color: #707070;
+   background-color: #707070;
 }
 
 /* filter avtive style  */
 
 .filterActiveBgColor {
-  background: #fff;
+   background-color: #fff;
 }
+
 </style>
