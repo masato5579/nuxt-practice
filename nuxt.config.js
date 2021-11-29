@@ -1,3 +1,6 @@
+import Sass from 'sass'
+import Fiber from 'fibers'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {
@@ -21,8 +24,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~assets/css/reset.css',
-    '~assets/css/style.css'
+    { src: '~/assets/scss/style.scss' },
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -49,5 +51,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber
+        }
+      }
+    }
   }
 }
