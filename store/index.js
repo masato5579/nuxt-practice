@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { v4 as uuidv4 } from 'uuid'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -11,13 +12,17 @@ const createStore = () => {
     mutations: {
       add(state, obj) {
         state.todos.unshift({
+          id: uuidv4(),
           content: obj.content,
           state: false,
           status: '未完了'
         })
       },
       toggleState(state, obj) {
-        state.todos[obj.index].state = !state.todos[obj.index].state
+        const hoge = state.todos.find((todo) => {
+          return todo.id === obj.id
+        })
+        hoge.state = !hoge.state
       }
     }
   })
