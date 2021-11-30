@@ -17,7 +17,7 @@ const createStore = () => {
         })
       },
       changeState(state, obj) {
-        obj.todo.state = !state.todos[obj.index].state
+        state.todos[obj.index].state = !state.todos[obj.index].state
       }
     }
   })
