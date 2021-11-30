@@ -9,14 +9,14 @@ const createStore = () => {
       getTodos: state => state.todos
     },
     mutations: {
-      insert(state, obj) {
+      add(state, obj) {
         state.todos.unshift({
           content: obj.content,
           state: false,
           status: '未完了'
         })
       },
-      changeState(state, obj) {
+      toggleState(state, obj) {
         state.todos[obj.index].state = !state.todos[obj.index].state
       }
     }

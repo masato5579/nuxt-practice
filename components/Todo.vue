@@ -9,13 +9,13 @@
           name="input"
           placeholder="タスクを入力してください"
         />
-        <button @click="insert">
+        <button @click="add">
           追加
         </button>
       </div>
       <div class="filter">
         <div v-for="(btn, index) in buttons" :key="index" class="buttonWrap">
-          <button :class="{'filterActiveBgColor' : btn.colorFlag}" @click="getfilter( index )">{{ btn.value }}</button>
+          <button :class="{'filterActiveBgColor' : btn.active}" @click="updateFilter( index )">{{ btn.value }}</button>
         </div>
       </div>
       <div v-for="(todo,index) in getTodos" :key="index" class="task">
@@ -23,7 +23,7 @@
           <p class="taskContent" :class="{'completeContent' : todo.state }">
             {{ todo.content }}
           </p>
-          <button :class="{'completeButton' : todo.state }" @click="changeState({ todo, index })">
+          <button :class="{'completeButton' : todo.state }" @click="toggleState({ todo, index })">
             完了
           </button>
         </div>
@@ -40,9 +40,9 @@ export default {
       content: '',
       button: '',
       buttons: [
-        { value: '全て', colorFlag: true },
-        { value: '完了', colorFlag: false },
-        { value: '未完了', colorFlag: false }
+        { value: '全て', active: true },
+        { value: '完了', active: false },
+        { value: '未完了', active: false }
       ]
     }
   },
@@ -62,28 +62,28 @@ export default {
     }
   },
   methods: {
-    insert() {
+    add() {
       if (this.content !== '') {
-        this.$store.commit('insert', { content: this.content })
+        this.$store.commit('add', { content: this.content })
         this.content = ''
       } else {
         alert('タスクが入力されていません。')
       }
     },
-    changeState(todo) {
-      this.$store.commit('changeState', todo)
+    toggleState(todo) {
+      this.$store.commit('toggleState', todo)
     },
-    getfilter(index) {
+    updateFilter(index) {
       this.button = this.buttons[index].value
 
-      const changeButtonsColorFlag = this.buttons.map((button, i) => {
+      const newButtons = this.buttons.map((button, i) => {
         return {
           ...button,
-          colorFlag: index === i
+          active: index === i
         }
       })
 
-      this.buttons = changeButtonsColorFlag
+      this.buttons = newButtons
     }
   }
 }
