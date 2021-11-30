@@ -23,7 +23,7 @@
           <p class="taskContent" :class="{'completeContent' : todo.state }">
             {{ todo.content }}
           </p>
-          <button :class="{'completeButton' : todo.state }" @click="toggleState({ todo, index })">
+          <button :class="{'completeButton' : todo.state }" @click="toggleState(todo)">
             完了
           </button>
         </div>
