@@ -50,15 +50,9 @@ export default {
     getTodos() {
       const button = this.button
       const allTodos = this.$store.getters.getTodos
-      const completeTodos = allTodos.filter(todo => (todo.state === true))
-      const notCompleteTodos = allTodos.filter(todo => (todo.state === false))
-      if (button === '完了') {
-        return completeTodos
-      } else if (button === '未完了') {
-        return notCompleteTodos
-      } else {
-        return allTodos
-      }
+      if (button === '完了') { return allTodos.filter(todo => (todo.state === true)) }
+      if (button === '未完了') { return allTodos.filter(todo => (todo.state === false)) }
+      return allTodos
     }
   },
   methods: {
