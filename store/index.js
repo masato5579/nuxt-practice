@@ -19,10 +19,10 @@ const createStore = () => {
         })
       },
       toggleState(state, obj) {
-        const hoge = state.todos.find((todo) => {
+        const todoTarget = state.todos.find((todo) => {
           return todo.id === obj.id
         })
-        hoge.state = !hoge.state
+        todoTarget.state = !todoTarget.state
       }
     }
   })
